@@ -209,13 +209,13 @@ namespace React
 						Engine.Execute(contents, file);
 					}
 				}
-				catch (JsScriptException ex)
+				catch (JsException ex)
 				{
 					throw new ReactScriptLoadException(string.Format(
 						"Error while loading \"{0}\": {1}",
 						file,
 						ex.Message
-					));
+					), ex);
 				}
 			}
 			Engine.SetVariableValue(USER_SCRIPTS_LOADED_KEY, true);
