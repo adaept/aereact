@@ -10,8 +10,8 @@ of patent rights can be found in the PATENTS file in the same directory.
 <Project ToolsVersion="4.0" DefaultTargets="Build;Test;Package" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<Major>4</Major>
-		<Minor>1</Minor>
-		<Build>1</Build>
+		<Minor>2</Minor>
+		<Build>0-beta1</Build>
 		<Revision>0</Revision>
 		<DevNuGetServer>http://reactjs.net/packages/</DevNuGetServer>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
@@ -50,6 +50,10 @@ of patent rights can be found in the PATENTS file in the same directory.
 		<!-- npm packages -->
 		<Exec
 			WorkingDirectory="src/React.Core"
+			Command="npm install"
+		/>
+		<Exec
+			WorkingDirectory="src/React.Core/Resources/babel-legacy"
 			Command="npm install"
 		/>
 		<Exec
@@ -93,6 +97,7 @@ of patent rights can be found in the PATENTS file in the same directory.
 
 	<Target Name="Build" DependsOnTargets="RestorePackages;UpdateVersion">
 		<Exec WorkingDirectory="src/React.Core" Command="node_modules/.bin/webpack" />
+		<Exec WorkingDirectory="src/React.Core/Resources/babel-legacy" Command="node_modules/.bin/webpack" />
 		<MSBuild Projects="$(SolutionFile)" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU;NoWarn=1607,7035,1701;Version=$(VersionString)" />
 		<Exec WorkingDirectory="src/React.Sample.Webpack.CoreMvc" Command="node_modules/.bin/webpack" />
 	</Target>
